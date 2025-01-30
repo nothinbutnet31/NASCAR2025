@@ -1,0 +1,23 @@
+{
+  "season": 2025,
+  "weeks": [
+    {
+      "week": 1,
+      "date": "2025-02-18",
+      "standings": [
+        {"name": "John", "points": 150},
+        {"name": "Heather", "points": 140},
+        {"name": "Mike", "points": 130}
+      ]
+    },
+    {
+      "week": 2,
+      "date": "2025-02-25",
+      "standings": [
+        {"name": "Heather", "points": 300},
+        {"name": "John", "points": 290},
+        {"name": "Mike", "points": 270}
+      ]
+    }
+  ]
+}
