@@ -2,22 +2,290 @@
   "season": 2025,
   "weeks": [
     {
-      "week": 1,
       "date": "2025-02-18",
+      "track": "Daytona 500 (Daytona)",
       "standings": [
-        {"name": "John", "points": 150},
-        {"name": "Heather", "points": 140},
-        {"name": "Mike", "points": 130}
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
       ]
     },
     {
-      "week": 2,
-      "date": "2025-02-25",
+      "date": "2025-02-23",
+      "track": "Ambetter Health 400 (Atlanta)",
       "standings": [
-        {"name": "Heather", "points": 300},
-        {"name": "John", "points": 290},
-        {"name": "Mike", "points": 270}
+        {"name": "Heather", "points": 0},
+        {"name": "John", "points": 0},
+        {"name": "Mike", "points": 0}
       ]
     }
+    {
+      "date": "2025-03-02",
+      "track": "EchoPark Automotive Grand Prix (Austin)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-03-09",
+      "track": "Shriners Children's 500 (Phoenix)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-03-16",
+      "track": "Pennzoil 400 (Las Vegas)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-03-23",
+      "track": "Straight Talk Wireless 400 (Homestead)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-03-30",
+      "track": "Cook Out 400 (Martinsville)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-04-06",
+      "track": "Goodyear 400 (Darlington)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-04-13",
+      "track": "Food City 500 (Bristol)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-04-27",
+      "track": "Jack Link's 500 (Talladega)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-05-04",
+      "track": "Wurth 400 (Texas)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-05-11",
+      "track": "AdventHealth 400 (Kansas)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-05-25",
+      "track": "Coca-Cola 600 (Charlotte)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-06-01",
+      "track": "Nashville",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-06-08",
+      "track": "Firekeepers Casino 400 (Michigan)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-06-15",
+      "track": "Mexico City",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-06-22",
+      "track": "Pocono",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-06-28",
+      "track": "Quake State 400 (Atlanta)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-07-06",
+      "track": "Grant Park 165 (Chicago)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-07-13",
+      "track": "Toyota/Save Mart 350 (Sonoma)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-07-20",
+      "track": "Autotrader EchoPark 400 (Dover)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-07-27",
+      "track": "Brickyard 400 (Indianapolis)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-08-03",
+      "track": "Iowa Corn 350 (Iowa)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-08-10",
+      "track": "Go Bowling at the Glen (Watkins Glen)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-08-16",
+      "track": "Cook Out 400 (Richmond)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },{
+      "date": "2025-08-23",
+      "track": "Coke Zero Sugar 400 (Daytona)",
+      "standings": [
+        {"name": "Edmund", "points": 0},
+        {"name": "Heather", "points": 0},
+        {"name": "Emilia", "points": 0},
+        {"name": "Dan", "points": 0},
+        {"name": "Midge", "points": 0},
+        {"name": "Grace", "points": 0}
+      ]
+    },
   ]
 }
