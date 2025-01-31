@@ -1,42 +1,47 @@
 fetch("standings.json")
     .then(response => response.json())
     .then(data => {
-        const weekSelector = document.getElementById("weekSelector");
-        const weeklyTable = document.querySelector("#weeklyTable tbody");
-        const overallTable = document.querySelector("#overallTable tbody");
+        const trackSelector = document.getElementById("trackSelector");
+        const trackTable = document.querySelector("#trackTable tbody");
 
-        let overallPoints = {};
+        let trackCounts = {}; // Object to track duplicate tracks
 
-        // Populate dropdown with weeks
-        data.weeks.forEach(week => {
+        // Populate dropdown with track names
+        data.races.forEach((race, index) => {
+            let trackName = race.track;
+
+            // If the track has appeared before, add a number
+            if (trackCounts[trackName]) {
+                trackCounts[trackName]++;
+                trackName += ` (${trackCounts[trackName]})`;
+            } else {
+                trackCounts[trackName] = 1;
+            }
+
             let option = document.createElement("option");
-            option.value = week.week;
-            option.textContent = `Week ${week.week}`;
-            weekSelector.appendChild(option);
-
-            week.standings.forEach(player => {
-                overallPoints[player.name] = (overallPoints[player.name] || 0) + player.points;
-            });
+            option.value = index;
+            option.textContent = trackName;
+            trackSelector.appendChild(option);
         });
 
-        // Function to display weekly standings
-        function displayWeek(weekNumber) {
-            const week = data.weeks.find(w => w.week == weekNumber);
-            weeklyTable.innerHTML = "";
-            week.standings.forEach((player, index) => {
-                weeklyTable.innerHTML += `<tr><td>${index + 1}</td><td>${player.name}</td><td>${player.points}</td></tr>`;
+        // Function to display standings for a selected track
+        function displayTrack(trackIndex) {
+            const race = data.races[trackIndex];
+
+            // Display track name
+            document.getElementById("trackInfo").textContent = `Track: ${race.track}`;
+
+            // Update standings table
+            trackTable.innerHTML = "";
+            race.standings.forEach((player, index) => {
+                trackTable.innerHTML += `<tr><td>${index + 1}</td><td>${player.name}</td><td>${player.points}</td></tr>`;
             });
         }
 
-        // Display overall standings
-        let sortedOverall = Object.entries(overallPoints).sort((a, b) => b[1] - a[1]);
-        sortedOverall.forEach(([name, points], index) => {
-            overallTable.innerHTML += `<tr><td>${index + 1}</td><td>${name}</td><td>${points}</td></tr>`;
-        });
+        // Set default to first track
+        displayTrack(0);
 
-        // Update standings on week selection
-        weekSelector.addEventListener("change", (e) => displayWeek(e.target.value));
-
-        // Default to first week
-        displayWeek(data.weeks[0].week);
+        // Update standings on track selection
+        trackSelector.addEventListener("change", (e) => displayTrack(e.target.value));
     });
+
