@@ -21,7 +21,7 @@
         {"name": "John", "points": 0},
         {"name": "Mike", "points": 0}
       ]
-    }
+    },
     {
       "date": "2025-03-02",
       "track": "EchoPark Automotive Grand Prix (Austin)",
@@ -286,6 +286,6 @@
         {"name": "Midge", "points": 0},
         {"name": "Grace", "points": 0}
       ]
-    },
+    }
   ]
 }
