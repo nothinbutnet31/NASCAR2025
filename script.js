@@ -626,17 +626,32 @@ function checkStreaks(weekNumber) {
 
 // Update generateWeeklyRecap to remove total score display
 function generateWeeklyRecap() {
-  const recapContainer = document.getElementById("weekly-recap");
-  if (!recapContainer) return;
+  try {
+    const recapContainer = document.getElementById("weekly-recap");
+    if (!recapContainer) return;
 
-  const weekSelect = document.getElementById("week-select");
-  const selectedWeekNumber = parseInt(weekSelect.value, 10);
-  const weekData = standingsData.weeks.find((week) => week.week === selectedWeekNumber);
+    const weekSelect = document.getElementById("week-select");
+    const selectedWeekNumber = parseInt(weekSelect.value, 10);
+    const weekData = standingsData.weeks.find((week) => week.week === selectedWeekNumber);
 
-  if (!weekData) {
-    recapContainer.innerHTML = "<p>No data available for this week.</p>";
-    return;
-  }
+    if (!weekData) {
+      recapContainer.innerHTML = "<p>No data available for this week.</p>";
+      return;
+    }
+
+    // Championship Movement section
+    if (selectedWeekNumber > 1) {
+      try {
+        const previousStandings = calculateStandingsAfterWeek(selectedWeekNumber - 1);
+        const currentStandings = calculateStandingsAfterWeek(selectedWeekNumber);
+
+        const movements = calculatePositionChanges(previousStandings, currentStandings);
+        // ... rest of the championship movement code
+      } catch (error) {
+        console.error("Error calculating standings:", error);
+        // Continue with the rest of the recap even if this part fails
+      }
+    }
 
   // Get top team for the week
   const topTeam = Object.entries(weekData.standings)
@@ -990,6 +1005,9 @@ function generateWeeklyRecap() {
 // Helper function to calculate standings after a specific week
 function calculateStandingsAfterWeek(weekNumber) {
   const totalPoints = {};
+  
+  // Get teams for this specific week
+  const currentTeams = standingsData.teams(weekNumber);
 
   // Initialize total points for each team
   Object.keys(currentTeams).forEach(team => {
@@ -1001,7 +1019,9 @@ function calculateStandingsAfterWeek(weekNumber) {
     .filter((week, index) => index < weekNumber)
     .forEach(week => {
       Object.entries(week.standings).forEach(([team, data]) => {
-        totalPoints[team] += data.total;
+        if (data && data.total) {
+          totalPoints[team] = (totalPoints[team] || 0) + data.total;
+        }
       });
     });
 
