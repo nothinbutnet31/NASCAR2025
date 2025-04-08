@@ -40,7 +40,7 @@ let standingsData = {
         Edmund: {
           drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
         },
-        "Free Agents": {
+        FreeAgents: {
           drivers: ["Justin Haley", "Harrison Burton", "Corey LaJoie", "Todd Gilliland"], // Add your free agents here
           isFreeAgents: true // Flag to identify free agent team
         }
@@ -65,7 +65,7 @@ let standingsData = {
         Edmund: {
           drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
         },
-        "Free Agents": {
+        FreeAgents: {
           drivers: ["Justin Haley", "Ty Dillon", "Zane Smith", "Todd Gilliland", "John H Nemechek", "Cody Ware"], // Add your free agents here
           isFreeAgents: true // Flag to identify free agent team
         }
@@ -351,7 +351,7 @@ function loadWeeklyStandings() {
             expectedPoints[team] = calculateExpectedTeamPoints(data.drivers);
           }
         });
-
+          
         // Sort teams by expected points
           const sortedTeams = Object.entries(weekData.standings)
       .filter(([team]) => !currentTeams[team]?.isFreeAgents)
