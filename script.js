@@ -1232,7 +1232,7 @@ function loadTeamPage() {
 
 function updateTeamRoster(selectedTeam, selectedTrackIndex) {
   const teamRoster = document.querySelector("#team-roster tbody");
-  if (!teamRoster) return;
+  if (!teamRoster || !standingsData.teams[selectedTeam]) return;
 
   teamRoster.innerHTML = "";
 
@@ -1240,20 +1240,24 @@ function updateTeamRoster(selectedTeam, selectedTrackIndex) {
     // For "All Races" view, combine all drivers that have ever been on the team
     const allDrivers = new Set(); // Use Set to avoid duplicates
     
-    // Add current drivers
-    standingsData.teams[selectedTeam].drivers.forEach(driver => allDrivers.add(driver));
+    // Add current drivers if they exist
+    if (standingsData.teams[selectedTeam].drivers) {
+      standingsData.teams[selectedTeam].drivers.forEach(driver => allDrivers.add(driver));
+    }
     
     // Add past drivers by checking all weeks
-    standingsData.weeks.forEach(week => {
-      if (week.standings[selectedTeam]?.drivers) {
-        Object.keys(week.standings[selectedTeam].drivers).forEach(driver => {
-          allDrivers.add(driver);
-        });
-      }
-    });
+    if (standingsData.weeks) {
+      standingsData.weeks.forEach(week => {
+        if (week && week.standings && week.standings[selectedTeam]?.drivers) {
+          Object.keys(week.standings[selectedTeam].drivers).forEach(driver => {
+            allDrivers.add(driver);
+          });
+        }
+      });
+    }
 
     // Create rows for all drivers
-    Array.from(allDrivers).forEach(driver => {
+    Array.from(allDrivers).sort().forEach(driver => {
       const row = document.createElement("tr");
       // Calculate total points across all weeks for this driver
       const points = standingsData.weeks.reduce((sum, week) => {
@@ -1268,7 +1272,7 @@ function updateTeamRoster(selectedTeam, selectedTrackIndex) {
     });
   } else {
     // For specific week, show only active drivers
-    const drivers = standingsData.teams[selectedTeam].drivers;
+    const drivers = standingsData.teams[selectedTeam].drivers || [];
     drivers.forEach(driver => {
       const row = document.createElement("tr");
       const week = standingsData.weeks[selectedTrackIndex];
