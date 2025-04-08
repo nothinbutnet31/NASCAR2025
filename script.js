@@ -19,24 +19,49 @@ window.scoringSystem = {
 
 let standingsData = {
   weeks: [],
-  teams: {
-    Midge: {
-      drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
-    },
-    Emilia: { 
-      drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
-    },
-    Heather: { 
-      drivers: ["Kyle Busch", "Chase Elliott", "Erik Jones", "Tyler Reddick", "Michael McDowell"]
-    },
-    Dan: {
-      drivers: ["Brad Keselowski", "Chris Buescher", "Noah Gragson", "Joey Logano", "Cole Custer"]
-    },
-    Grace: {
-      drivers: ["Ross Chastain", "Chase Briscoe", "Josh Berry", "Bubba Wallace", "Daniel Suarez"]
-    },
-    Edmund: {
-      drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
+  teams: function(weekNumber) {
+    if (weekNumber <= 6) {
+      return {
+        Midge: {
+          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
+        },
+        Emilia: { 
+          drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
+        },
+        Heather: { 
+          drivers: ["Kyle Busch", "Chase Elliott", "Erik Jones", "Tyler Reddick", "Michael McDowell"]
+        },
+        Dan: {
+          drivers: ["Brad Keselowski", "Chris Buescher", "Noah Gragson", "Joey Logano", "Cole Custer"]
+        },
+        Grace: {
+          drivers: ["Ross Chastain", "Chase Briscoe", "Josh Berry", "Bubba Wallace", "Daniel Suarez"]
+        },
+        Edmund: {
+          drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
+        }
+      };
+    } else {
+      return {
+        Midge: {
+          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "New Driver", "Zane Smith"]
+        },
+        Emilia: { 
+          drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
+        },
+        Heather: { 
+          drivers: ["Kyle Busch", "Chase Elliott", "Erik Jones", "Tyler Reddick", "Michael McDowell"]
+        },
+        Dan: {
+          drivers: ["Brad Keselowski", "Chris Buescher", "Noah Gragson", "Joey Logano", "Cole Custer"]
+        },
+        Grace: {
+          drivers: ["Ross Chastain", "Chase Briscoe", "Josh Berry", "Bubba Wallace", "Daniel Suarez"]
+        },
+        Edmund: {
+          drivers: ["Ryan Blaney", "Christopher Bell", "Todd Gilliland", "Ty Gibbs", "Carson Hocevar"]
+        }
+      };
     }
   }
 };
@@ -130,25 +155,19 @@ function processTotalsData(data) {
 
   console.log("Processed Totals Data:", standingsData);
 }
+const teamsForWeek =currentTeams(weekNumber);
 
 // Process driver data
 function processRaceData(data) {
   const headerRow = data[0];
   const positions = data.slice(1);
 
-  standingsData.weeks = [];
-
   headerRow.slice(1).forEach((track, trackIndex) => {
-    if (!track) return;
-
-    let raceResults = {
-      track: track.trim(),
-      week: trackIndex + 1,
-      standings: {}
-    };
+    const weekNumber = trackIndex + 1;
+    const currentTeams = currentTeams(weekNumber);
 
     // Process each team's drivers
-    Object.entries(standingsData.teams).forEach(([teamName, team]) => {
+    Object.entries(currentTeams).forEach(([teamName, team]) => {
       let teamPoints = 0;
       let driverResults = {};
 
@@ -188,7 +207,7 @@ function loadOverallStandings() {
 
   // Calculate total points for each team
   const totalPoints = {};
-  Object.keys(standingsData.teams).forEach(team => {
+  Object.keys(currentTeams).forEach(team => {
     totalPoints[team] = 0;
   });
 
@@ -281,7 +300,7 @@ function loadWeeklyStandings() {
     if (weeklyContent) weeklyContent.style.display = "none";
 
     // Handle preseason standings
-    if (preseasonTable && standingsData.teams) {
+    if (preseasonTable && currentTeams) {
       const tbody = preseasonTable.querySelector("tbody");
       if (!tbody) {
         console.error("Preseason table tbody not found");
@@ -294,7 +313,7 @@ function loadWeeklyStandings() {
       try {
         // Calculate expected points for each team
         const expectedPoints = {};
-        Object.entries(standingsData.teams).forEach(([team, data]) => {
+        Object.entries(currentTeams).forEach(([team, data]) => {
           if (data.drivers) {
             expectedPoints[team] = calculateExpectedTeamPoints(data.drivers);
           }
@@ -380,7 +399,7 @@ function calculateDriverAverages(weekNumber) {
   }
 
   // After week 5, calculate actual averages
-  Object.entries(standingsData.teams).forEach(([team, data]) => {
+  Object.entries(currentTeams).forEach(([team, data]) => {
     data.drivers.forEach(driver => {
       let totalPoints = 0;
       let raceCount = 0;
@@ -535,7 +554,7 @@ function checkStreaks(weekNumber) {
   };
 
   // Only check individual drivers
-  Object.entries(standingsData.teams).forEach(([team, data]) => {
+  Object.entries(currentTeams).forEach(([team, data]) => {
     data.drivers.forEach(driver => {
       let driverHotStreak = 0;
       let driverColdStreak = 0;
@@ -949,7 +968,7 @@ function calculateStandingsAfterWeek(weekNumber) {
   const totalPoints = {};
 
   // Initialize total points for each team
-  Object.keys(standingsData.teams).forEach(team => {
+  Object.keys(currentTeams).forEach(team => {
     totalPoints[team] = 0;
   });
 
@@ -1143,7 +1162,7 @@ function updateTeamRoster(selectedTeam, selectedTrackIndex) {
   if (!teamRoster) return;
 
   teamRoster.innerHTML = "";
-  const drivers = standingsData.teams[selectedTeam].drivers;
+  const drivers = currentTeams[selectedTeam].drivers;
 
   drivers.forEach(driver => {
     const row = document.createElement("tr");
@@ -1204,7 +1223,7 @@ function populateTeamDropdown() {
   const teamSelect = document.getElementById("team-select");
   teamSelect.innerHTML = "";
 
-  Object.keys(standingsData.teams).forEach((team) => {
+  Object.keys(currentTeams).forEach((team) => {
     const option = document.createElement("option");
     option.value = team;
     option.textContent = team;
