@@ -1221,6 +1221,7 @@ function loadTeamPage() {
     const teamImageUrl = `https://raw.githubusercontent.com/nothinbutnet31/NASCAR/main/images/teams/${teamImageName}.png`;
     teamImage.src = teamImageUrl;
     teamImage.alt = `${selectedTeam} Logo`;
+  }
 // Add this CSS if it's not already present
 if (!document.getElementById('team-page-styles')) {
   const styles = document.createElement('style');
