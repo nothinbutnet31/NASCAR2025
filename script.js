@@ -1178,7 +1178,7 @@ function loadTeamPage() {
     teamImage.src = teamImageUrl;
     teamImage.alt = `${selectedTeam} Logo`;
   }
-}
+
 // Add this CSS if it's not already present
 if (!document.getElementById('team-page-styles')) {
   const styles = document.createElement('style');
