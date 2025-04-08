@@ -1123,6 +1123,11 @@ function loadTeamPage() {
     const weekSelect = document.getElementById("week-select");
     const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
 
+    // Clear existing roster
+    if (teamRoster) {
+        teamRoster.innerHTML = "";
+    }
+
     // Populate track select dropdown if empty
     if (trackSelect && trackSelect.options.length === 0) {
         // Add "All Races" option
@@ -1132,7 +1137,7 @@ function loadTeamPage() {
         trackSelect.appendChild(allRacesOption);
 
         // Add each track
-         standingsData.weeks.forEach((week, index) => {
+        standingsData.weeks.forEach((week, index) => {
             if (week && week.track && week.track.trim() !== "" && 
                 Object.values(week.standings).some(team => team.total > 0)) {
                 const option = document.createElement("option");
@@ -1142,7 +1147,9 @@ function loadTeamPage() {
             }
         });
     }
-          if (trackSelect) {
+
+    // Add event listeners
+    if (trackSelect) {
         trackSelect.onchange = () => {
             updateTrackImageForTeamPage(trackSelect.value);
             updateTeamRoster(teamSelect.value, trackSelect.value);
@@ -1156,11 +1163,21 @@ function loadTeamPage() {
         };
     }
 
-    // Initial load
-    updateTeamRoster(teamSelect.value, trackSelect.value);
-    updateTrackImageForTeamPage(trackSelect.value);
-}
+    const selectedTeam = teamSelect ? teamSelect.value : "";
+    const selectedTrackIndex = trackSelect ? trackSelect.value : "";
+    
+    // Get all teams including free agents
+    const allTeams = getFreeAgents(weekNumber);
 
+    if (!allTeams[selectedTeam]) {
+        console.error("No team data found");
+        return;
+    }
+
+    // Initial load
+    updateTeamRoster(selectedTeam, selectedTrackIndex);
+    updateTrackImageForTeamPage(selectedTrackIndex);
+}
     // Clear existing roster
     teamRoster.innerHTML = "";
 
