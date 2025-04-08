@@ -1003,7 +1003,14 @@ function generateWeeklyRecap() {
       });
   }
 
-  updateTrackImage();
+     updateTrackImage();
+  } catch (error) {
+    console.error("Error generating weekly recap:", error);
+    if (recapContainer) {
+      recapContainer.innerHTML = "<p>Error generating recap. Please try again.</p>";
+    }
+  }
+}
 }
 
 
