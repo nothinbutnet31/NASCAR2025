@@ -213,7 +213,7 @@ function processRaceData(data) {
   };
 
   console.log("Processed Race Data:", standingsData);
-}
+
 
 // Load Overall Standings
 function loadOverallStandings() {
