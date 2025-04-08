@@ -178,7 +178,7 @@ function processRaceData(data) {
       if (!track) return;
 
       const weekNumber = trackIndex + 1;
-      const currentTeams = standingsData.teams(weekNumber);
+      const currentTeams = getFreeAgents(weekNumber);
 
       let raceResults = {
         track: track.trim(),
