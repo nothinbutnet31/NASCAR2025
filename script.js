@@ -1093,14 +1093,82 @@ function loadTeamPage() {
   const teamImage = document.getElementById("team-image");
   const trackImage = document.getElementById("track-image");
 
+  // Remove any existing containers to prevent duplication
+  const existingContainer = document.querySelector("#team-selection-container");
+  if (existingContainer) {
+    existingContainer.remove();
+  }
+
+  // Create container for selects and images
+  const selectImageContainer = document.createElement("div");
+  selectImageContainer.id = "team-selection-container";
+  selectImageContainer.style.cssText = `
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+  `;
+
+  // Create left container for team select and image
+  const teamContainer = document.createElement("div");
+  teamContainer.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  `;
+
+  // Create right container for track select and image
+  const trackContainer = document.createElement("div");
+  trackContainer.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  `;
+
   // Get the selected track's week number or default to current week
   const selectedTrackIndex = trackSelect ? trackSelect.value : "";
   const weekNumber = selectedTrackIndex !== "" 
     ? parseInt(selectedTrackIndex) + 1 
-    : standingsData.weeks.length; // Use latest week if "All Races" selected
+    : standingsData.weeks.length;
 
   // Get the correct team roster for this week
   const currentTeams = standingsData.teams(weekNumber);
+
+  // Style the select elements
+  if (teamSelect && trackSelect) {
+    teamSelect.style.cssText = `
+      padding: 8px;
+      width: 200px;
+    `;
+    trackSelect.style.cssText = `
+      padding: 8px;
+      width: 200px;
+    `;
+
+    teamContainer.appendChild(teamSelect);
+    if (teamImage) {
+      teamImage.style.width = '200px';
+      teamContainer.appendChild(teamImage);
+    }
+
+    trackContainer.appendChild(trackSelect);
+    if (trackImage) {
+      trackImage.style.width = '200px';
+      trackContainer.appendChild(trackImage);
+    }
+
+    selectImageContainer.appendChild(teamContainer);
+    selectImageContainer.appendChild(trackContainer);
+
+    // Insert after the title
+    const teamContent = document.getElementById("teams");
+    const title = teamContent.querySelector("h2");
+    if (title) {
+      title.insertAdjacentElement('afterend', selectImageContainer);
+    }
+  }
 
   if (!teamSelect || !teamSelect.value) {
     console.warn("No team selected.");
@@ -1190,11 +1258,59 @@ function updateTeamRoster(selectedTeam, selectedTrackIndex, weekNumber) {
     }
 
     row.innerHTML = `
-      <td>${driver}</td>
-      <td>${points}</td>
+      <td class="standings-cell">${driver}</td>
+      <td class="standings-cell">${points}</td>
     `;
     teamRoster.appendChild(row);
   });
+}
+
+// Add this CSS if it's not already present
+if (!document.getElementById('team-page-styles')) {
+  const styles = document.createElement('style');
+  styles.id = 'team-page-styles';
+  styles.innerHTML = `
+    #team-roster {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    #team-roster th,
+    #team-roster td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    #team-roster th {
+      background-color: #1976D2;
+      color: white;
+      font-weight: bold;
+    }
+
+    #team-roster tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    #team-roster tr:hover {
+      background-color: #f0f0f0;
+    }
+
+    .standings-cell {
+      text-align: center !important;
+      vertical-align: middle !important;
+    }
+
+    #team-selection-container {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  `;
+  document.head.appendChild(styles);
 }
 
 // Add new function to update track image in team page
