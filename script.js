@@ -240,7 +240,7 @@ function loadOverallStandings() {
   // Initialize total points for each team
   Object.entries(currentTeams).forEach(([team, data]) => {
     if (!data.isFreeAgents) { // Skip Free Agents team
-      totalPoints[team] = 0;
+      totalPoints[team] = -1;
     }
   });
 
