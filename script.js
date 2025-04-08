@@ -41,7 +41,7 @@ let standingsData = {
           drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
         },
         FreeAgents: {
-          drivers: ["Justin Haley", "Harrison Burton", "Corey LaJoie", "Todd Gilliland"], // Add your free agents here
+          drivers: ["Justin Haley", "Ty Dillon", "Zane Smith", "Todd Gilliland", "John H Nemechek", "Cody Ware"], // Add your free agents here
           isFreeAgents: true // Flag to identify free agent team
         }
       };
