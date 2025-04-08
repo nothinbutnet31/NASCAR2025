@@ -1091,20 +1091,6 @@ function calculatePointSpread(standings) {
   return Math.max(...scores) - Math.min(...scores);
 }
 
-// Load Team Page (Roster, Images, etc.)
-function getFreeAgents(weekNum) {
-    // Get regular teams
-    const regularTeams = standingsData.teams(weekNum);
-    
-    // Create free agents team with the same structure as regular teams
-    const freeAgents = {
-        "Free Agents": {
-            drivers: weekNum <= 6 ? 
-                ["Justin Haley", "Harrison Burton", "Corey LaJoie", "Todd Gilliland"] :
-                ["Justin Haley", "Harrison Burton", "Corey LaJoie", "Riley Herbst", "Shane Van Gisbergen"]
-        }
-    };
-
     // Add debug logging
     console.log("Free Agents Team:", freeAgents);
     
@@ -1122,11 +1108,6 @@ function loadTeamPage() {
     const teamRoster = document.querySelector("#team-roster tbody");
     const weekSelect = document.getElementById("week-select");
     const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
-
-    // Clear existing roster
-    if (teamRoster) {
-        teamRoster.innerHTML = "";
-    }
 
     // Populate track select dropdown if empty
     if (trackSelect && trackSelect.options.length === 0) {
@@ -1148,7 +1129,6 @@ function loadTeamPage() {
         });
     }
 
-    // Add event listeners
     if (trackSelect) {
         trackSelect.onchange = () => {
             updateTrackImageForTeamPage(trackSelect.value);
@@ -1163,20 +1143,9 @@ function loadTeamPage() {
         };
     }
 
-    const selectedTeam = teamSelect ? teamSelect.value : "";
-    const selectedTrackIndex = trackSelect ? trackSelect.value : "";
-    
-    // Get all teams including free agents
-    const allTeams = getFreeAgents(weekNumber);
-
-    if (!allTeams[selectedTeam]) {
-        console.error("No team data found");
-        return;
-    }
-
     // Initial load
-    updateTeamRoster(selectedTeam, selectedTrackIndex);
-    updateTrackImageForTeamPage(selectedTrackIndex);
+    updateTeamRoster(teamSelect.value, trackSelect.value);
+    updateTrackImageForTeamPage(trackSelect.value);
 }
     // Clear existing roster
     teamRoster.innerHTML = "";
