@@ -44,7 +44,7 @@ let standingsData = {
     } else {
       return {
         Midge: {
-          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Zane Smith"]
+          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
         },
         Emilia: { 
           drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
@@ -59,7 +59,7 @@ let standingsData = {
           drivers: ["Ross Chastain", "Chase Briscoe", "Josh Berry", "Bubba Wallace", "Daniel Suarez"]
         },
         Edmund: {
-          drivers: ["Ryan Blaney", "Christopher Bell", "Todd Gilliland", "Ty Gibbs", "Carson Hocevar"]
+          drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
         }
       };
     }
@@ -1230,58 +1230,41 @@ function loadTeamPage() {
   updateTeamRoster(selectedTeam, trackSelect ? trackSelect.value : "", weekNumber);
 }
 
-function updateTeamRoster(selectedTeam, selectedTrackIndex) {
+function updateTeamRoster(selectedTeam, selectedTrackIndex, weekNumber) {
   const teamRoster = document.querySelector("#team-roster tbody");
   if (!teamRoster) return;
 
+  // Get the correct team roster for this week
+  const currentTeams = standingsData.teams(weekNumber);
+  
   teamRoster.innerHTML = "";
+  const drivers = currentTeams[selectedTeam].drivers;
 
-  if (selectedTrackIndex === "") {
-    // For "All Races" view, combine all drivers that have ever been on the team
-    const allDrivers = new Set(); // Use Set to avoid duplicates
-    
-    // Add current drivers
-    standingsData.teams[selectedTeam].drivers.forEach(driver => allDrivers.add(driver));
-    
-    // Add past drivers by checking all weeks
-    standingsData.weeks.forEach(week => {
-      if (week.standings[selectedTeam]?.drivers) {
-        Object.keys(week.standings[selectedTeam].drivers).forEach(driver => {
-          allDrivers.add(driver);
-        });
-      }
-    });
+  drivers.forEach(driver => {
+    const row = document.createElement("tr");
+    let points = 0;
 
-    // Create rows for all drivers
-    Array.from(allDrivers).forEach(driver => {
-      const row = document.createElement("tr");
-      // Calculate total points across all weeks for this driver
-      const points = standingsData.weeks.reduce((sum, week) => {
+    if (selectedTrackIndex === "") {
+      // Calculate total points across all races
+      points = standingsData.weeks.reduce((sum, week) => {
         return sum + (week.standings[selectedTeam]?.drivers[driver] || 0);
       }, 0);
-
-      row.innerHTML = `
-        <td class="standings-cell">${driver}</td>
-        <td class="standings-cell">${points}</td>
-      `;
-      teamRoster.appendChild(row);
-    });
-  } else {
-    // For specific week, show only active drivers
-    const drivers = standingsData.teams[selectedTeam].drivers;
-    drivers.forEach(driver => {
-      const row = document.createElement("tr");
+    } else {
+      // Get points for specific race
       const week = standingsData.weeks[selectedTrackIndex];
-      const points = week && week.standings[selectedTeam]?.drivers[driver] || 0;
+      if (week && week.standings[selectedTeam]?.drivers[driver]) {
+        points = week.standings[selectedTeam].drivers[driver];
+      }
+    }
 
-      row.innerHTML = `
-        <td class="standings-cell">${driver}</td>
-        <td class="standings-cell">${points}</td>
-      `;
-      teamRoster.appendChild(row);
-    });
-  }
+    row.innerHTML = `
+      <td class="standings-cell">${driver}</td>
+      <td class="standings-cell">${points}</td>
+    `;
+    teamRoster.appendChild(row);
+  });
 }
+
 // Add this CSS if it's not already present
 if (!document.getElementById('team-page-styles')) {
   const styles = document.createElement('style');
