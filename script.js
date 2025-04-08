@@ -44,7 +44,7 @@ let standingsData = {
     } else {
       return {
         Midge: {
-          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "New Driver", "Zane Smith"]
+          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Zane Smith"]
         },
         Emilia: { 
           drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
