@@ -1357,7 +1357,7 @@ function updateTrackImageForTeamPage(selectedTrackIndex) {
 function populateTeamDropdown() {
   const weekSelect = document.getElementById("week-select");
   const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
-  const currentTeams = standingsData.teams(weekNumber);
+  const currentTeams = getFreeAgents(weekNumber);
   const teamSelect = document.getElementById("team-select");
   teamSelect.innerHTML = "";
 
