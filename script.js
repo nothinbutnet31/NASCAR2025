@@ -121,13 +121,13 @@ async function fetchDataFromGoogleSheets() {
       throw new Error("Failed to fetch data from Google Sheets");
     }
 
-    const data = await response.json();
+     const data = await response.json();
     if (!data.values || data.values.length === 0) {
       throw new Error("No data received from Google Sheets");
     }
 
     console.log("Raw data from sheets:", data.values);
-    processRaceData(data.values);
+    await processRaceData(data.values);
     isDataLoaded = true;
     init();
   } catch (error) {
@@ -212,10 +212,19 @@ function processRaceData(data) {
 // Load Overall Standings
 function loadOverallStandings() {
   const overallTable = document.querySelector("#overall-standings tbody");
+  if (!overallTable) return;
+  
   overallTable.innerHTML = "";
+
+  // Get current week number and teams
+  const weekSelect = document.getElementById("week-select");
+  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
+  const currentTeams = standingsData.teams(weekNumber);
 
   // Calculate total points for each team
   const totalPoints = {};
+  
+  // Initialize total points for each team
   Object.keys(currentTeams).forEach(team => {
     totalPoints[team] = 0;
   });
@@ -242,22 +251,22 @@ function loadOverallStandings() {
     // Position icons
     switch(position) {
       case 1:
-        positionIcon = '🏆'; // Trophy for 1st
+        positionIcon = '🏆';
         break;
       case 2:
-        positionIcon = '🥈'; // Silver medal for 2nd
+        positionIcon = '🥈';
         break;
       case 3:
-        positionIcon = '🥉'; // Bronze medal for 3rd
+        positionIcon = '🥉';
         break;
       case 4:
-        positionIcon = '😬'; // Grimace for 4th
+        positionIcon = '😬';
         break;
       case 5:
-        positionIcon = '👎'; // Thumbs Down for 5th
+        positionIcon = '👎';
         break;
       case 6:
-        positionIcon = '💩'; // Poop for last
+        positionIcon = '💩';
         break;
     }
 
@@ -1348,12 +1357,19 @@ function openTab(tabName) {
 
 // Initialize the Page
 function init() {
-  if (isDataLoaded) {
+  if (!isDataLoaded) {
+    console.log("Waiting for data to load...");
+    setTimeout(init, 100);
+    return;
+  }
+
+  try {
     populateWeekDropdown();
     loadOverallStandings();
     createLiveNewsTicker();
-    // Open weekly standings tab by default
     openTab('weekly');
+  } catch (error) {
+    console.error("Error in init:", error);
   }
 }
 
