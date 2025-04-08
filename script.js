@@ -1132,8 +1132,9 @@ function loadTeamPage() {
         trackSelect.appendChild(allRacesOption);
 
         // Add each track
-        standingsData.weeks.forEach((week, index) => {
-            if (week && week.track && week.track.trim() !== "") {
+         standingsData.weeks.forEach((week, index) => {
+            if (week && week.track && week.track.trim() !== "" && 
+                Object.values(week.standings).some(team => team.total > 0)) {
                 const option = document.createElement("option");
                 option.value = index;
                 option.textContent = week.track;
@@ -1141,6 +1142,7 @@ function loadTeamPage() {
             }
         });
     }
+        
 
     // Clear existing roster
     teamRoster.innerHTML = "";
@@ -1220,11 +1222,11 @@ function updateTeamRoster(selectedTeam, selectedTrackIndex, weekNumber) {
   if (!teamRoster) return;
 
   // Get the correct team roster for this week
-  const currentTeams = standingsData.teams(weekNumber);
+  const currentTeams = getFreeAgents(weekNumber);
   
   teamRoster.innerHTML = "";
   const drivers = currentTeams[selectedTeam].drivers;
-
+ 
   drivers.forEach(driver => {
     const row = document.createElement("tr");
     let points = 0;
