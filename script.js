@@ -1082,10 +1082,6 @@ function calculatePointSpread(standings) {
 
 // Load Team Page (Roster, Images, etc.)
 function loadTeamPage() {
-  const weekSelect = document.getElementById("week-select");
-  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
-  const currentTeams = standingsData.teams(weekNumber);
-  
   if (!isDataLoaded || !standingsData.weeks || standingsData.weeks.length === 0) {
     console.warn("Data not fully loaded yet.");
     return;
@@ -1097,73 +1093,14 @@ function loadTeamPage() {
   const teamImage = document.getElementById("team-image");
   const trackImage = document.getElementById("track-image");
 
-  // Remove any existing containers to prevent duplication
-  const existingContainer = document.querySelector("#team-selection-container");
-  if (existingContainer) {
-    existingContainer.remove();
-  }
+  // Get the selected track's week number or default to current week
+  const selectedTrackIndex = trackSelect ? trackSelect.value : "";
+  const weekNumber = selectedTrackIndex !== "" 
+    ? parseInt(selectedTrackIndex) + 1 
+    : standingsData.weeks.length; // Use latest week if "All Races" selected
 
-  // Create container for selects and images
-  const selectImageContainer = document.createElement("div");
-  selectImageContainer.id = "team-selection-container"; // Add ID for easy removal
-  selectImageContainer.style.cssText = `
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 20px 0;
-  `;
-
-  // Create left container for team select and image
-  const teamContainer = document.createElement("div");
-  teamContainer.style.cssText = `
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  `;
-
-  // Create right container for track select and image
-  const trackContainer = document.createElement("div");
-  trackContainer.style.cssText = `
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  `;
-
-  // Style the select elements
-  if (teamSelect && trackSelect) {
-    teamSelect.style.cssText = `
-      padding: 8px;
-      width: 200px;
-    `;
-    trackSelect.style.cssText = `
-      padding: 8px;
-      width: 200px;
-    `;
-
-    teamContainer.appendChild(teamSelect);
-    if (teamImage) {
-      teamImage.style.width = '200px';
-      teamContainer.appendChild(teamImage);
-    }
-
-    trackContainer.appendChild(trackSelect);
-    if (trackImage) {
-      trackImage.style.width = '200px';
-      trackContainer.appendChild(trackImage);
-    }
-
-    selectImageContainer.appendChild(teamContainer);
-    selectImageContainer.appendChild(trackContainer);
-
-    // Insert after the title
-    const teamContent = document.getElementById("teams");
-    const title = teamContent.querySelector("h2");
-    if (title) {
-      title.insertAdjacentElement('afterend', selectImageContainer);
-    }
-  }
+  // Get the correct team roster for this week
+  const currentTeams = standingsData.teams(weekNumber);
 
   if (!teamSelect || !teamSelect.value) {
     console.warn("No team selected.");
@@ -1201,7 +1138,10 @@ function loadTeamPage() {
     // Add change event listener (only once)
     trackSelect.removeEventListener("change", trackSelect.changeHandler);
     trackSelect.changeHandler = () => {
-      updateTeamRoster(selectedTeam, trackSelect.value);
+      const newWeekNumber = trackSelect.value !== "" 
+        ? parseInt(trackSelect.value) + 1 
+        : standingsData.weeks.length;
+      updateTeamRoster(selectedTeam, trackSelect.value, newWeekNumber);
       updateTrackImageForTeamPage(trackSelect.value);
     };
     trackSelect.addEventListener("change", trackSelect.changeHandler);
@@ -1219,17 +1159,16 @@ function loadTeamPage() {
   }
 
   // Update roster based on selected track or all races
-  updateTeamRoster(selectedTeam, trackSelect ? trackSelect.value : "");
+  updateTeamRoster(selectedTeam, trackSelect ? trackSelect.value : "", weekNumber);
 }
 
-function updateTeamRoster(selectedTeam, selectedTrackIndex) {
- const weekSelect = document.getElementById("week-select");
-  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
-  const currentTeams = standingsData.teams(weekNumber);
-  
+function updateTeamRoster(selectedTeam, selectedTrackIndex, weekNumber) {
   const teamRoster = document.querySelector("#team-roster tbody");
   if (!teamRoster) return;
 
+  // Get the correct team roster for this week
+  const currentTeams = standingsData.teams(weekNumber);
+  
   teamRoster.innerHTML = "";
   const drivers = currentTeams[selectedTeam].drivers;
 
