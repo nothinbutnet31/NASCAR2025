@@ -155,7 +155,7 @@ function processTotalsData(data) {
 
   console.log("Processed Totals Data:", standingsData);
 }
-const teamsForWeek =currentTeams(weekNumber);
+const teamsForWeek = standingsData.teams(weekNumber);
 
 // Process driver data
 function processRaceData(data) {
