@@ -155,7 +155,7 @@ function processTotalsData(data) {
 
   console.log("Processed Totals Data:", standingsData);
 }
-const teamsForWeek = standingsData.teams(weekNumber);
+
 
 // Process driver data
 function processRaceData(data) {
@@ -167,8 +167,8 @@ function processRaceData(data) {
   headerRow.slice(1).forEach((track, trackIndex) => {
     if (!track) return;
 
-    const weekNumber = trackIndex + 1; // Calculate the week number
-    const currentTeams = standingsData.teams(weekNumber); // Get teams for this week
+    const weekNumber = trackIndex + 1;
+    const currentTeams = standingsData.teams(weekNumber);
 
     let raceResults = {
       track: track.trim(),
@@ -176,8 +176,7 @@ function processRaceData(data) {
       standings: {}
     };
 
-    // Process each team's drivers
- Object.entries(currentTeams).forEach(([teamName, team]) => {
+    Object.entries(currentTeams).forEach(([teamName, team]) => {
       let teamPoints = 0;
       let driverResults = {};
 
@@ -203,16 +202,11 @@ function processRaceData(data) {
       };
     });
 
-      raceResults.standings[teamName] = {
-        total: teamPoints,
-        drivers: driverResults
-      };
-    });
-
     standingsData.weeks.push(raceResults);
-  };
+  });
 
   console.log("Processed Race Data:", standingsData);
+}
 
 
 // Load Overall Standings
@@ -1177,6 +1171,10 @@ function loadTeamPage() {
 }
 
 function updateTeamRoster(selectedTeam, selectedTrackIndex) {
+ const weekSelect = document.getElementById("week-select");
+  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
+  const currentTeams = standingsData.teams(weekNumber);
+  
   const teamRoster = document.querySelector("#team-roster tbody");
   if (!teamRoster) return;
 
