@@ -1009,35 +1009,40 @@ function generateWeeklyRecap() {
 
 // Helper function to calculate standings after a specific week
 function calculateStandingsAfterWeek(weekNumber) {
-  const totalPoints = {};
-  
-  // Get teams for this specific week
-  const currentTeams = standingsData.teams(weekNumber);
+  try {
+    const totalPoints = {};
+    
+    // Get teams for this specific week
+    const currentTeams = standingsData.teams(weekNumber);
 
-  // Initialize total points for each team
-  Object.keys(currentTeams).forEach(team => {
-    totalPoints[team] = 0;
-  });
-
-  // Calculate points up to the selected week
-  standingsData.weeks
-    .filter((week, index) => index < weekNumber)
-    .forEach(week => {
-      Object.entries(week.standings).forEach(([team, data]) => {
-        if (data && data.total) {
-          totalPoints[team] = (totalPoints[team] || 0) + data.total;
-        }
-      });
+    // Initialize total points for each team
+    Object.keys(currentTeams).forEach(team => {
+      totalPoints[team] = 0;
     });
 
-  // Sort teams by points
-  return Object.entries(totalPoints)
-    .sort((a, b) => b[1] - a[1])
-    .map(([team, points], position) => ({
-      position: position + 1,
-      team,
-      points
-    }));
+    // Calculate points up to the selected week
+    standingsData.weeks
+      .filter((week, index) => index < weekNumber)
+      .forEach(week => {
+        Object.entries(week.standings).forEach(([team, data]) => {
+          if (data && data.total) {
+            totalPoints[team] = (totalPoints[team] || 0) + data.total;
+          }
+        });
+      });
+
+    // Sort teams by points and return the standings
+    return Object.entries(totalPoints)
+      .sort((a, b) => b[1] - a[1])
+      .map(([team, points], position) => ({
+        position: position + 1,
+        team,
+        points
+      }));
+  } catch (error) {
+    console.error("Error calculating standings:", error);
+    return []; // Return empty array if there's an error
+  }
 }
 
 // Helper function to calculate position changes
