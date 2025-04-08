@@ -1123,6 +1123,25 @@ function loadTeamPage() {
     const weekSelect = document.getElementById("week-select");
     const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
 
+    // Populate track select dropdown if empty
+    if (trackSelect && trackSelect.options.length === 0) {
+        // Add "All Races" option
+        const allRacesOption = document.createElement("option");
+        allRacesOption.value = "";
+        allRacesOption.textContent = "All Races";
+        trackSelect.appendChild(allRacesOption);
+
+        // Add each track
+        standingsData.weeks.forEach((week, index) => {
+            if (week && week.track && week.track.trim() !== "") {
+                const option = document.createElement("option");
+                option.value = index;
+                option.textContent = week.track;
+                trackSelect.appendChild(option);
+            }
+        });
+    }
+
     // Clear existing roster
     teamRoster.innerHTML = "";
 
@@ -1131,9 +1150,6 @@ function loadTeamPage() {
     
     // Get all teams including free agents
     const allTeams = getFreeAgents(weekNumber);
-    
-    console.log("Selected Team:", selectedTeam);
-    console.log("All Teams:", allTeams);
 
     if (!allTeams[selectedTeam]) {
         console.error("No team data found");
@@ -1142,7 +1158,6 @@ function loadTeamPage() {
 
     // Get drivers for selected team
     const teamDrivers = allTeams[selectedTeam].drivers;
-    console.log("Team Drivers:", teamDrivers);
 
     // Create row for each driver
     teamDrivers.forEach(driver => {
@@ -1151,16 +1166,15 @@ function loadTeamPage() {
         if (selectedTrackIndex === "") {
             // Calculate total points across all races
             standingsData.weeks.forEach(week => {
-                if (week.standings[selectedTeam]?.drivers?.[driver]) {
-                    totalPoints += week.standings[selectedTeam].drivers[driver];
-                }
-                // For free agents, check all teams for their points
                 if (selectedTeam === "Free Agents") {
+                    // For free agents, check all teams
                     Object.values(week.standings).forEach(teamData => {
                         if (teamData.drivers?.[driver]) {
                             totalPoints += teamData.drivers[driver];
                         }
                     });
+                } else if (week.standings[selectedTeam]?.drivers?.[driver]) {
+                    totalPoints += week.standings[selectedTeam].drivers[driver];
                 }
             });
         } else {
