@@ -39,6 +39,10 @@ let standingsData = {
         },
         Edmund: {
           drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
+        },
+        "Free Agents": {
+          drivers: ["Justin Haley", "Harrison Burton", "Corey LaJoie", "Todd Gilliland"], // Add your free agents here
+          isFreeAgents: true // Flag to identify free agent team
         }
       };
     } else {
@@ -60,6 +64,10 @@ let standingsData = {
         },
         Edmund: {
           drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
+        },
+        "Free Agents": {
+          drivers: ["Justin Haley", "Ty Dillon", "Zane Smith", "Todd Gilliland", "John H Nemechek", "Cody Ware"], // Add your free agents here
+          isFreeAgents: true // Flag to identify free agent team
         }
       };
     }
@@ -230,8 +238,10 @@ function loadOverallStandings() {
   const totalPoints = {};
   
   // Initialize total points for each team
-  Object.keys(currentTeams).forEach(team => {
-    totalPoints[team] = 0;
+  Object.entries(currentTeams).forEach(([team, data]) => {
+    if (!data.isFreeAgents) { // Skip Free Agents team
+      totalPoints[team] = 0;
+    }
   });
 
   if (standingsData.weeks) {
@@ -343,9 +353,9 @@ function loadWeeklyStandings() {
         });
 
         // Sort teams by expected points
-        const sortedTeams = Object.entries(expectedPoints)
-          .sort((a, b) => b[1] - a[1]);
-    
+          const sortedTeams = Object.entries(weekData.standings)
+      .filter(([team]) => !currentTeams[team]?.isFreeAgents)
+      .sort((a, b) => b[1].total - a[1].total);
 
 
         // Generate table rows
