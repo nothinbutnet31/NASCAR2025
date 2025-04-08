@@ -1162,13 +1162,6 @@ function loadTeamPage() {
     updateTrackImageForTeamPage(selectedTrackIndex);
 }
 
-    // Add change event listener (only once)
-    trackSelect.removeEventListener("change", trackSelect.changeHandler);
-    trackSelect.changeHandler = () => {
-      updateTeamRoster(selectedTeam, trackSelect.value);
-      updateTrackImageForTeamPage(trackSelect.value);
-    };
-    trackSelect.addEventListener("change", trackSelect.changeHandler);
   
 
   // Update team image
