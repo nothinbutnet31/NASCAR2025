@@ -232,7 +232,6 @@ function loadOverallStandings() {
 
   // Get current week number and teams
   const weekSelect = document.getElementById("week-select");
-  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
   const currentTeams = standingsData.teams(weekNumber);
 
   // Calculate total points for each team
