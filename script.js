@@ -39,10 +39,6 @@ let standingsData = {
         },
         Edmund: {
           drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
-        },
-        FreeAgents: {
-          drivers: ["Justin Haley", "Ty Dillon", "Zane Smith", "Todd Gilliland", "John H Nemechek", "Cody Ware"], // Add your free agents here
-          isFreeAgents: true // Flag to identify free agent team
         }
       };
     } else {
@@ -64,16 +60,21 @@ let standingsData = {
         },
         Edmund: {
           drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
-        },
-        FreeAgents: {
-          drivers: ["Justin Haley", "Ty Dillon", "Zane Smith", "Todd Gilliland", "John H Nemechek", "Cody Ware"], // Add your free agents here
-          isFreeAgents: true // Flag to identify free agent team
         }
       };
     }
   }
 };
+function getFreeAgents(weekNumber){
+  const regularTeams = standings.teams(weekNumber);
 
+  const freeAgents ={
+    "Free Agents":{
+      drivers: ["Justin Haley", "Ty Dillon", "Zane Smith", "Todd Gilliland", "John H Nemechek", "Cody Ware"], // Add your free agents here
+                }
+  };
+  return{ ...regularTeams, ...freAgents};
+}
 // Add this constant for expected averages
 const expectedDriverAverages = {
   // Top tier drivers (25+ avg)
@@ -1144,7 +1145,7 @@ function loadTeamPage() {
     : standingsData.weeks.length;
 
   // Get the correct team roster for this week
-  const currentTeams = standingsData.teams(weekNumber);
+  const currentTeams =  getFreeAgents(weekNumber);
 
   // Style the select elements
   if (teamSelect && trackSelect) {
