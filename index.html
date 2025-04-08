@@ -1,17 +1,275 @@
-<h2> Weekly Standings </h2>
-<select id="trackSelector"></select>
-<h3 id="trackInfo">Track: </h3>
-<table id="trackTable">
-    <thead>
-        <tr><th>Rank</th><th>Name</th><th>Points</th></tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FFD700" />
+   <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Fantasy NASCAR">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+   <meta http-equiv="Pragma" content="no-cache">
+   <meta http-equiv="Expires" content="0">
+    <link rel="icon" href="/NASCAR/favicon.ico">
+    <link rel="manifest" href="/NASCAR/manifest.json">
+    <link rel="apple-touch-icon" href="/NASCAR/icons/icon-192x192.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <title>Fantasy NASCAR Standings</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Fantasy NASCAR Standings</h1>
 
-<h2>Overall Standings</h2>
-<table id="overallTable">
-    <thead>
-        <tr><th>Rank</th><th>Name</th><th>Points</th></tr>
-    </thead>
-    <tbody></tbody>
-</table>
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tablink active" onclick="openTab('overall')">Overall Standings</button>
+            <button class="tablink" onclick="openTab('weekly')">Weekly Standings</button>
+            <button class="tablink" onclick="openTab('teams')">Team Pages</button>
+            <button class="tablink" onclick="openTab('scoring-rules')">Scoring Rules</button>
+        </div>
+
+        <!-- Overall Standings -->
+        <div id="overall" class="tabcontent">
+            <h2>Overall Standings</h2>
+            <table id="overall-standings">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Team</th>
+                        <th>Total Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Overall standings will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+<!-- Weekly Standings -->
+<div id="weekly" class="tabcontent" style="display:none;">
+    <h2>Weekly Standings</h2>
+
+  <!-- Replace the existing preseason-message div with this updated version -->
+<div id="preseason-message" style="text-align: center; padding: 20px;">
+    <h3>🏁 Welcome to the 2025 Fantasy NASCAR Season! 🏁</h3>
+    <p style="font-size: 1.2em; margin: 20px 0;">The season hasn't started yet, but get ready for an exciting year of racing!</p>
+    
+    <!-- Add this new section for preseason rankings -->
+    <div class="preseason-rankings">
+        <h4>Preseason Power Rankings</h4>
+        <table id="preseason-standings" style="width: 80%; margin: 20px auto;">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>Expected Points Per Race</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- This will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <div style="margin: 20px 0;">
+        <h4>Important Dates:</h4>
+        <p>Season Opener: Daytona 500 - February 16, 2025</p>
+    </div>
+    
+    <!-- Rest of your existing preseason message content -->
+    <div style="margin: 20px 0;">
+      <h4>2025 Team Outlook:</h4>
+    <ul style="list-style: none; padding: 0;">
+        <li style="margin-bottom: 20px;">
+            <strong>Midge's Team:</strong><br><br>
+            Midge is primed to compete strongly on superspeedways, with multiple Daytona 500 champions on her roster. 
+            Road courses are another area where she'll excel, especially with the addition of Shane van Gisbergen, 
+            a proven road course expert. Short tracks won't be a concern either, as she has Denny Hamlin and Ryan Preece, 
+            both known for their success on tight, short ovals. The real question will be how she fares on the intermediate 
+            tracks, where consistency and strategy will be key for success.
+        </li>
+        <li style="margin-bottom: 20px;">
+            <strong>Emilia's Team:</strong><br><br>
+            Emilia's 2025 season looks promising, but track performance will be key. Superspeedways like Daytona and 
+            Talladega could be strong for the team, with drivers like Austin Dillon and AJ Allmendinger providing solid 
+            drafting and positioning skills. Road courses are another strength, where Allmendinger excels, and Cindric's 
+            road course experience will be crucial for strong finishes. Short tracks, such as Bristol and Martinsville, 
+            could be challenging, as the team lacks a clear short-track specialist, though Larson's versatility may help 
+            offset this. Intermediate tracks like Atlanta and Charlotte will likely be a mix of results, with Larson's 
+            skillset and Bowman's consistency being assets, but the team may struggle to find consistent speed without 
+            strong race-day execution. Overall, a well-balanced strategy will be necessary, with some tracks posing 
+            greater challenges than others.
+        </li>
+        <li style="margin-bottom: 20px;">
+            <strong>Heather's Team:</strong><br><br>
+            Heather's team is well-balanced across track types, with Chase Elliott and Tyler Reddick excelling on road 
+            courses, while Kyle Busch brings consistency across all tracks, especially short tracks and intermediates. 
+            Erik Jones is a strong sleeper at Darlington and superspeedways, while Michael McDowell thrives on 
+            superspeedways and road courses. The team's biggest strength is versatility, but weaknesses may arise on 
+            high-wear tracks and short tracks if Jones and McDowell struggle to keep pace.
+        </li>
+        <li style="margin-bottom: 20px;">
+            <strong>Dan's Team:</strong><br><br>
+            Dan's team is built on veteran experience and superspeedway strength, with Brad Keselowski and Joey Logano 
+            excelling on drafting tracks like Daytona and Talladega. Chris Buescher adds consistency, especially on 
+            short tracks and intermediates, while Noah Gragson and Cole Custer bring potential but uncertainty. The 
+            team's biggest strength is its prowess on superspeedways and short tracks, but it may face challenges on 
+            road courses and high-wear intermediates if the younger drivers struggle to keep up.
+        </li>
+        <li style="margin-bottom: 20px;">
+            <strong>Grace's Team:</strong><br><br>
+            Grace's team is aggressive and high-upside, with Ross Chastain leading the charge on intermediates and road 
+            courses. Bubba Wallace adds superspeedway strength, while Chase Briscoe and Daniel Suarez bring road course 
+            and short-track potential. Josh Berry, in his second full season but first with Wood Brothers, has shown 
+            promise on short tracks. This team's biggest strengths are road courses and superspeedways, but consistency 
+            could be a concern, especially on high-wear tracks and intermediates if mistakes or bad luck come into play.
+        </li>
+        <li style="margin-bottom: 20px;">
+            <strong>Edmund's Team:</strong><br><br>
+            Edmund's team has a solid mix of experience and rising talent. Ryan Blaney and Christopher Bell provide 
+            consistency and speed across intermediates and short tracks. Ty Gibbs adds strong potential, especially on 
+            intermediate tracks, while Riley Herbst and Carson Hocevar bring youthful energy with upside, particularly 
+            on short tracks and road courses. The team's strength lies in Blaney and Bell's versatility, but it may 
+            struggle to maintain consistent performance on superspeedways and high-wear tracks if the younger drivers 
+            don't make a significant leap.
+        </li>
+        </ul>
+    </div>
+</div>
+
+    <!-- Weekly Content -->
+    <div id="weekly-content">
+        <div class="week-selection" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
+            <div style="display: flex; align-items: center;">
+                <label for="week-select" style="margin-right: 10px;">Select Week:</label>
+                <select id="week-select">
+                    <!-- Weeks will be populated dynamically -->
+                </select>
+            </div>
+            <div id="weekly-track-image-container">
+                <img id="weekly-track-image" src="" alt="Track Layout" style="max-width: 200px; margin: 10px 0;">
+            </div>
+        </div>
+        <table id="weekly-standings">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Weekly standings will be populated here -->
+            </tbody>
+        </table>
+        <div id="weekly-recap"></div>
+    </div>
+</div>
+
+        <!-- Team Pages -->
+        <div id="teams" class="tabcontent" style="display:none;">
+            <h2>Team Pages</h2>
+            <div id="team-details">
+                <!-- Team selection and image -->
+                <div class="team-selection">
+                    <select id="team-select">
+                        <!-- Teams will be populated dynamically -->
+                    </select>
+                    <div id="team-image-container">
+                        <img id="team-image" src="" alt="Team Image" width="200" height="200">
+                    </div>
+                </div>
+
+                <!-- Track selection -->
+                <div class="track-selection">
+                    <select id="track-select">
+                        <!-- Tracks will be populated dynamically -->
+                    </select>
+                    <div id="track-image-container">
+                        <img id="track-image" src="" alt="Track Image" width="200" height="200">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table for Team Roster -->
+            <table id="team-roster">
+                <thead>
+                    <tr>
+                        <th>Driver</th>
+                        <th>Points (This Track)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Driver points will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Scoring Rules -->
+        <div id="scoring-rules" class="tabcontent" style="display:none;">
+            <h2>Scoring Rules</h2>
+            <p>Here's how points are calculated:</p>
+
+            <!-- Position Scoring (Two Columns) -->
+            <div class="scoring-rules">
+                <div class="scoring-item"><strong>1st Place:</strong> 38 points</div>
+                <div class="scoring-item"><strong>2nd Place:</strong> 34 points</div>
+                <div class="scoring-item"><strong>3rd Place:</strong> 33 points</div>
+                <div class="scoring-item"><strong>4th Place:</strong> 32 points</div>
+                <div class="scoring-item"><strong>5th Place:</strong> 31 points</div>
+                <div class="scoring-item"><strong>6th Place:</strong> 30 points</div>
+                <div class="scoring-item"><strong>7th Place:</strong> 29 points</div>
+                <div class="scoring-item"><strong>8th Place:</strong> 28 points</div>
+                <div class="scoring-item"><strong>9th Place:</strong> 27 points</div>
+                <div class="scoring-item"><strong>10th Place:</strong> 26 points</div>
+                <div class="scoring-item"><strong>11th Place:</strong> 25 points</div>
+                <div class="scoring-item"><strong>12th Place:</strong> 24 points</div>
+                <div class="scoring-item"><strong>13th Place:</strong> 23 points</div>
+                <div class="scoring-item"><strong>14th Place:</strong> 22 points</div>
+                <div class="scoring-item"><strong>15th Place:</strong> 21 points</div>
+                <div class="scoring-item"><strong>16th Place:</strong> 20 points</div>
+                <div class="scoring-item"><strong>17th Place:</strong> 19 points</div>
+                <div class="scoring-item"><strong>18th Place:</strong> 18 points</div>
+                <div class="scoring-item"><strong>19th Place:</strong> 17 points</div>
+                <div class="scoring-item"><strong>20th Place:</strong> 16 points</div>
+                <div class="scoring-item"><strong>21st Place:</strong> 15 points</div>
+                <div class="scoring-item"><strong>22nd Place:</strong> 14 points</div>
+                <div class="scoring-item"><strong>23rd Place:</strong> 13 points</div>
+                <div class="scoring-item"><strong>24th Place:</strong> 12 points</div>
+                <div class="scoring-item"><strong>25th Place:</strong> 11 points</div>
+                <div class="scoring-item"><strong>26th Place:</strong> 10 points</div>
+                <div class="scoring-item"><strong>27th Place:</strong> 9 points</div>
+                <div class="scoring-item"><strong>28th Place:</strong> 8 points</div>
+                <div class="scoring-item"><strong>29th Place:</strong> 7 points</div>
+                <div class="scoring-item"><strong>30th Place:</strong> 6 points</div>
+                <div class="scoring-item"><strong>31st Place:</strong> 5 points</div>
+                <div class="scoring-item"><strong>32nd Place:</strong> 4 points</div>
+                <div class="scoring-item"><strong>33rd Place:</strong> 3 points</div>
+                <div class="scoring-item"><strong>34th Place:</strong> 2 points</div>
+                <div class="scoring-item"><strong>35th Place:</strong> 1 point</div>
+                <div class="scoring-item"><strong>36th+ Place:</strong> 0 points</div>
+            </div>
+
+            <!-- Additional Scoring -->
+            <div class="additional-scoring">
+                <p>Additional points:</p>
+                <ul>
+                    <li><strong>Stage Win:</strong> 2 points</li>
+                    <li><strong>Pole Position:</strong> 2 points</li>
+                    <li><strong>Fastest Lap:</strong> 1 points</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Created by Punkin. Data sourced from Google Sheets.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+   
+    
+</body>
+</html>
