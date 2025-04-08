@@ -1011,7 +1011,7 @@ function generateWeeklyRecap() {
     }
   }
 }
-}
+
 
 
 // Helper function to calculate standings after a specific week
