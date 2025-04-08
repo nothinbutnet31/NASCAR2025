@@ -1142,7 +1142,24 @@ function loadTeamPage() {
             }
         });
     }
-        
+          if (trackSelect) {
+        trackSelect.onchange = () => {
+            updateTrackImageForTeamPage(trackSelect.value);
+            updateTeamRoster(teamSelect.value, trackSelect.value);
+        };
+    }
+
+    if (teamSelect) {
+        teamSelect.onchange = () => {
+            updateTeamRoster(teamSelect.value, trackSelect.value);
+            updateTrackImageForTeamPage(trackSelect.value);
+        };
+    }
+
+    // Initial load
+    updateTeamRoster(teamSelect.value, trackSelect.value);
+    updateTrackImageForTeamPage(trackSelect.value);
+}
 
     // Clear existing roster
     teamRoster.innerHTML = "";
