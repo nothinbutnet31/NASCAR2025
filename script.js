@@ -20,7 +20,7 @@ window.scoringSystem = {
 let standingsData = {
   weeks: [],
   teams: function(weekNumber) {
-    if (weekNumber <= 6) {
+    if (weekNumber <= 12) {
       return {
         Midge: {
           drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
@@ -44,7 +44,7 @@ let standingsData = {
     } else {
       return {
         Midge: {
-          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Zane Smith"]
+          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
         },
         Emilia: { 
           drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
@@ -59,7 +59,7 @@ let standingsData = {
           drivers: ["Ross Chastain", "Chase Briscoe", "Josh Berry", "Bubba Wallace", "Daniel Suarez"]
         },
         Edmund: {
-          drivers: ["Ryan Blaney", "Christopher Bell", "Todd Gilliland", "Ty Gibbs", "Carson Hocevar"]
+          drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
         }
       };
     }
