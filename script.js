@@ -416,6 +416,9 @@ function calculateDriverAverages(weekNumber) {
     return expectedDriverAverages;
   }
 
+  // Get the current teams for this week
+  const currentTeams = standingsData.teams(weekNumber);
+
   // After week 5, calculate actual averages
   Object.entries(currentTeams).forEach(([team, data]) => {
     data.drivers.forEach(driver => {
@@ -570,6 +573,9 @@ function checkStreaks(weekNumber) {
     hot: [], // Only drivers scoring 30+ in 3+ consecutive races
     cold: [] // Only drivers scoring under 10 in 3+ consecutive races
   };
+
+  // Get the current teams for this week
+  const currentTeams = standingsData.teams(weekNumber);
 
   // Only check individual drivers
   Object.entries(currentTeams).forEach(([team, data]) => {
