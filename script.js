@@ -20,7 +20,7 @@ window.scoringSystem = {
 let standingsData = {
   weeks: [],
   teams: function(weekNumber) {
-    if (weekNumber <= 12) {
+    if (weekNumber <= 6) {
       return {
         Midge: {
           drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
