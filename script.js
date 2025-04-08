@@ -66,7 +66,7 @@ let standingsData = {
   }
 };
 function getFreeAgents(weekNumber){
-  const regularTeams = standings.teams(weekNumber);
+  const regularTeams = standingsData.teams(weekNumber);
 
   const freeAgents ={
     "Free Agents":{
