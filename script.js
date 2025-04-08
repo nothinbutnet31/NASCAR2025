@@ -210,7 +210,7 @@ function processRaceData(data) {
     });
 
     standingsData.weeks.push(raceResults);
-  });
+  };
 
   console.log("Processed Race Data:", standingsData);
 }
