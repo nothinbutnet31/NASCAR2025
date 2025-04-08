@@ -1141,9 +1141,7 @@ function loadTeamPage() {
 
   // Get the selected track's week number or default to current week
   const selectedTrackIndex = trackSelect ? trackSelect.value : "";
-  const weekNumber = selectedTrackIndex !== "" 
-    ? parseInt(selectedTrackIndex) + 1 
-    : standingsData.weeks.length;
+   
 
   // Get the correct team roster for this week
   const currentTeams =  getFreeAgents(weekNumber);
