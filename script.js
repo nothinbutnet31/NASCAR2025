@@ -162,21 +162,30 @@ function processRaceData(data) {
   const headerRow = data[0];
   const positions = data.slice(1);
 
+  standingsData.weeks = [];
+
   headerRow.slice(1).forEach((track, trackIndex) => {
-    const weekNumber = trackIndex + 1;
-    const currentTeams = currentTeams(weekNumber);
+    if (!track) return;
+
+    const weekNumber = trackIndex + 1; // Calculate the week number
+    const currentTeams = standingsData.teams(weekNumber); // Get teams for this week
+
+    let raceResults = {
+      track: track.trim(),
+      week: weekNumber,
+      standings: {}
+    };
 
     // Process each team's drivers
-    Object.entries(currentTeams).forEach(([teamName, team]) => {
+ Object.entries(currentTeams).forEach(([teamName, team]) => {
       let teamPoints = 0;
       let driverResults = {};
 
       team.drivers.forEach(driver => {
         let driverPoints = 0;
 
-        // Check each row for the driver's position and bonus points
         positions.forEach(row => {
-          const category = row[0];  // Position or bonus category
+          const category = row[0];
           const raceDriver = row[trackIndex + 1];
 
           if (raceDriver === driver && scoringSystem[category]) {
@@ -187,6 +196,12 @@ function processRaceData(data) {
         driverResults[driver] = driverPoints;
         teamPoints += driverPoints;
       });
+
+      raceResults.standings[teamName] = {
+        total: teamPoints,
+        drivers: driverResults
+      };
+    });
 
       raceResults.standings[teamName] = {
         total: teamPoints,
@@ -1021,6 +1036,10 @@ function calculatePointSpread(standings) {
 
 // Load Team Page (Roster, Images, etc.)
 function loadTeamPage() {
+  const weekSelect = document.getElementById("week-select");
+  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
+  const currentTeams = standingsData.teams(weekNumber);
+  
   if (!isDataLoaded || !standingsData.weeks || standingsData.weeks.length === 0) {
     console.warn("Data not fully loaded yet.");
     return;
@@ -1220,6 +1239,9 @@ function updateTrackImageForTeamPage(selectedTrackIndex) {
 
 // Populate Team Dropdown
 function populateTeamDropdown() {
+  const weekSelect = document.getElementById("week-select");
+  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
+  const currentTeams = standingsData.teams(weekNumber);
   const teamSelect = document.getElementById("team-select");
   teamSelect.innerHTML = "";
 
