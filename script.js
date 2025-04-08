@@ -159,53 +159,58 @@ function processTotalsData(data) {
 
 // Process driver data
 function processRaceData(data) {
-  const headerRow = data[0];
-  const positions = data.slice(1);
+  try {
+    const headerRow = data[0];
+    const positions = data.slice(1);
 
-  standingsData.weeks = [];
+    standingsData.weeks = [];
 
-  headerRow.slice(1).forEach((track, trackIndex) => {
-    if (!track) return;
+    headerRow.slice(1).forEach((track, trackIndex) => {
+      if (!track) return;
 
-    const weekNumber = trackIndex + 1;
-    const currentTeams = standingsData.teams(weekNumber);
+      const weekNumber = trackIndex + 1;
+      const currentTeams = standingsData.teams(weekNumber);
 
-    let raceResults = {
-      track: track.trim(),
-      week: weekNumber,
-      standings: {}
-    };
+      let raceResults = {
+        track: track.trim(),
+        week: weekNumber,
+        standings: {}
+      };
 
-    Object.entries(currentTeams).forEach(([teamName, team]) => {
-      let teamPoints = 0;
-      let driverResults = {};
+      Object.entries(currentTeams).forEach(([teamName, team]) => {
+        let teamPoints = 0;
+        let driverResults = {};
 
-      team.drivers.forEach(driver => {
-        let driverPoints = 0;
+        team.drivers.forEach(driver => {
+          let driverPoints = 0;
 
-        positions.forEach(row => {
-          const category = row[0];
-          const raceDriver = row[trackIndex + 1];
+          positions.forEach(row => {
+            const category = row[0];
+            const raceDriver = row[trackIndex + 1];
 
-          if (raceDriver === driver && scoringSystem[category]) {
-            driverPoints += scoringSystem[category];
-          }
+            if (raceDriver === driver && scoringSystem[category]) {
+              driverPoints += scoringSystem[category];
+            }
+          });
+
+          driverResults[driver] = driverPoints;
+          teamPoints += driverPoints;
         });
 
-        driverResults[driver] = driverPoints;
-        teamPoints += driverPoints;
+        raceResults.standings[teamName] = {
+          total: teamPoints,
+          drivers: driverResults
+        };
       });
 
-      raceResults.standings[teamName] = {
-        total: teamPoints,
-        drivers: driverResults
-      };
+      standingsData.weeks.push(raceResults);
     });
 
-    standingsData.weeks.push(raceResults);
-  });
-
-  console.log("Processed Race Data:", standingsData);
+    console.log("Processed Race Data:", standingsData);
+  } catch (error) {
+    console.error("Error processing race data:", error);
+    throw error; // Re-throw the error to be caught by the calling function
+  }
 }
 
 
