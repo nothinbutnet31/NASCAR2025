@@ -232,6 +232,7 @@ function loadOverallStandings() {
 
   // Get current week number and teams
   const weekSelect = document.getElementById("week-select");
+  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
   const currentTeams = standingsData.teams(weekNumber);
 
   // Calculate total points for each team
@@ -1102,8 +1103,6 @@ function loadTeamPage() {
   const teamRoster = document.querySelector("#team-roster tbody");
   const teamImage = document.getElementById("team-image");
   const trackImage = document.getElementById("track-image");
-  const weekSelect = document.getElementById("week-select");
-  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
 
   // Remove any existing containers to prevent duplication
   const existingContainer = document.querySelector("#team-selection-container");
@@ -1141,7 +1140,9 @@ function loadTeamPage() {
 
   // Get the selected track's week number or default to current week
   const selectedTrackIndex = trackSelect ? trackSelect.value : "";
-   
+  const weekNumber = selectedTrackIndex !== "" 
+    ? parseInt(selectedTrackIndex) + 1 
+    : standingsData.weeks.length;
 
   // Get the correct team roster for this week
   const currentTeams =  getFreeAgents(weekNumber);
