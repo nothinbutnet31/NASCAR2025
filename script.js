@@ -73,7 +73,7 @@ function getFreeAgents(weekNumber){
       drivers: ["Justin Haley", "Ty Dillon", "Zane Smith", "Todd Gilliland", "John H Nemechek", "Cody Ware"], // Add your free agents here
                 }
   };
-  return{ ...regularTeams, ...freAgents};
+  return{ ...regularTeams, ...freeAgents};
 }
 // Add this constant for expected averages
 const expectedDriverAverages = {
@@ -1103,6 +1103,8 @@ function loadTeamPage() {
   const teamRoster = document.querySelector("#team-roster tbody");
   const teamImage = document.getElementById("team-image");
   const trackImage = document.getElementById("track-image");
+  const weekSelect = document.getElementById("week-select");
+  const weekNumber = weekSelect ? parseInt(weekSelect.value) : 1;
 
   // Remove any existing containers to prevent duplication
   const existingContainer = document.querySelector("#team-selection-container");
