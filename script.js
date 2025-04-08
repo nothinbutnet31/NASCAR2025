@@ -1169,7 +1169,7 @@ function loadTeamPage() {
       updateTrackImageForTeamPage(trackSelect.value);
     };
     trackSelect.addEventListener("change", trackSelect.changeHandler);
-  }
+  
 
   // Update team image
   if (teamImage) {
