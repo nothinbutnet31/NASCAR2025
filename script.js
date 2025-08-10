@@ -421,16 +421,30 @@ function calculateDriverAverages(weekNumber) {
     return expectedDriverAverages;
   }
 
-  // Get the current teams for this week
+function calculateDriverAverages(weekNumber) {
+  const averages = {};
+  const tableData = [];
+
+  if (weekNumber < 6) {
+    console.log("Using expected averages:");
+    Object.entries(expectedDriverAverages).forEach(([driver, avg]) => {
+      tableData.push({
+        Driver: driver,
+        Average: avg,
+        Source: "Expected"
+      });
+    });
+    console.table(tableData);
+    return expectedDriverAverages;
+  }
+
   const currentTeams = standingsData.teams(weekNumber);
 
-  // After week 5, calculate actual averages
   Object.entries(currentTeams).forEach(([team, data]) => {
     data.drivers.forEach(driver => {
       let totalPoints = 0;
       let raceCount = 0;
 
-      // Look at all weeks up to current week
       for (let i = 1; i <= weekNumber; i++) {
         const week = standingsData.weeks.find(w => w.week === i);
         if (week && week.standings[team]?.drivers[driver]) {
@@ -440,14 +454,28 @@ function calculateDriverAverages(weekNumber) {
       }
 
       if (raceCount > 0) {
-        averages[driver] = parseFloat((totalPoints / raceCount).toFixed(1));
+        const avg = parseFloat((totalPoints / raceCount).toFixed(1));
+        averages[driver] = avg;
+        tableData.push({
+          Driver: driver,
+          Average: avg,
+          Races: raceCount,
+          Source: "Actual"
+        });
       } else {
-        // Fallback to expected average if no races yet
-        averages[driver] = expectedDriverAverages[driver] || 15; // Default to 15 if no expectation set
+        const fallback = expectedDriverAverages[driver] || 15;
+        averages[driver] = fallback;
+        tableData.push({
+          Driver: driver,
+          Average: fallback,
+          Races: 0,
+          Source: "Fallback"
+        });
       }
     });
   });
 
+  console.table(tableData);
   return averages;
 }
 // Update calculateDriverOfTheWeek to use this info
@@ -1617,3 +1645,4 @@ setInterval(async () => {
   }
   await createLiveNewsTicker();
 }, 300000);
+
