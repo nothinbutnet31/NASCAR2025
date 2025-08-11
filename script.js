@@ -1246,8 +1246,8 @@ function updateTeamRoster(selectedTeam, selectedTrackIndex, weekNumber) {
     if (selectedTrackIndex === "") {
       // Calculate total points across all races
       points = standingsData.weeks.reduce((sum, week) => {
-        return sum + (week.standings[selectedTeam]?.drivers[driver] || 0);
-      }, 0);
+  return sum + (week.standings[selectedTeam]?.drivers[driver] || 0);
+}, 0) / standingsData.weeks.length;
     } else {
       // Get points for specific race
       const week = standingsData.weeks[selectedTrackIndex];
@@ -1616,5 +1616,6 @@ setInterval(async () => {
   }
   await createLiveNewsTicker();
 }, 300000);
+
 
 
