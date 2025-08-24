@@ -44,7 +44,7 @@ let standingsData = {
     } else {
       return {
         Midge: {
-          drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
+          drivers: ["Justin Haley", "Ty Dillon", "Todd Gilliland", "John H Nemechek", "Zane Smith"]
         },
         Emilia: { 
           drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
@@ -1616,6 +1616,7 @@ setInterval(async () => {
   }
   await createLiveNewsTicker();
 }, 300000);
+
 
 
 
