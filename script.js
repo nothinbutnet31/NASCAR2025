@@ -2,7 +2,7 @@
 // Constants and Initial Data
 const sheetId = "19LbY1UwCkPXyVMMnvdu_KrYpyi6WhNcfuC6wjzxeBLI";
 const apiKey = "AIzaSyDWBrtpo54AUuVClU49k0FdrLl-IFPpMdY";
-const driversRange = "Drivers!A1:AA45";
+const driversRange = "Drivers!A1:AA60";
 
 let isDataLoaded = false;
 
@@ -1464,4 +1464,5 @@ setInterval(async () => {
   }
   await createLiveNewsTicker();
 }, 300000);
+
 
