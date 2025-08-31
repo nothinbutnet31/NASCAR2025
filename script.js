@@ -21,22 +21,22 @@ let standingsData = {
   weeks: [],
   teams: {
     Midge: {
-      drivers: ["Christopher Bell", "Chris", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
+      drivers: ["Christopher Bell", "Chris Buescher", "Austin Dillon", "John H Nemechek", "Shane Van Gisbergen"]
     },
     Emilia: { 
-      drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
+      drivers: ["Ross Chastain", "Ryan Preece", "Kyle Larson", "Erik Jones", "Todd Gilliland"]
     },
     Heather: { 
-      drivers: ["Kyle Busch", "Chase Elliott", "Erik Jones", "Tyler Reddick", "Michael McDowell"]
+      drivers: ["Chase Briscoe", "Chase Elliott", "Alex Bowman", "Ty Gibbs", "AJ Allmendinger"]
     },
     Dan: {
-      drivers: ["Brad Keselowski", "Chris Buescher", "Noah Gragson", "Joey Logano", "Cole Custer"]
+      drivers: ["Brad Keselowski", "Ryan Blaney", "Austin Cindric", "Josh Berry", "Zane Smith"]
     },
     Grace: {
-      drivers: ["Ross Chastain", "Chase Briscoe", "Josh Berry", "Bubba Wallace", "Daniel Suarez"]
+      drivers: ["William Byron", "Joey Logano", "Kyle Busch", "Justin Haley", "Daniel Suarez"]
     },
     Edmund: {
-      drivers: ["Ryan Blaney", "Christopher Bell", "Riley Herbst", "Ty Gibbs", "Carson Hocevar"]
+      drivers: ["Denny Hamlin", "Tyler Reddick", "Bubba Wallace", "Michael McDowell", "Carson Hocevar"]
     }
   }
 };
@@ -1238,7 +1238,7 @@ function populateWeekDropdown() {
     });
 
     // Set to first week by default (DROPDOWN START)
-    weekSelect.value = "11";
+    weekSelect.value = "1";
   }
 
   // Single event listener for week changes
@@ -1419,10 +1419,10 @@ async function createLiveNewsTicker() {
 
       // League updates first
       const leagueUpdates = [
-        "🏆 Edmund gets another win, keeps regular season title hopes alive!",
-        "🔻 Emilia drops down to 2nd place overall.",
+        "🏆 Heather wins Regular Season Championship",
+        "🔻 Drivers are picked for the playoffs",
         "🤏 Top 3 in overall standings only seperated by 34 points!",
-        "🎯 Next Race: AdventHealth 400 @ Kansas Speedway, May 11th, 2025"
+        "🎯 Next Race: Southern 500 @ Darlington Raceway Aug. 31, 2025"
         
       ];
 
@@ -1464,6 +1464,7 @@ setInterval(async () => {
   }
   await createLiveNewsTicker();
 }, 300000);
+
 
 
 
