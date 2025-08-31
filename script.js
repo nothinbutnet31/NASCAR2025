@@ -21,7 +21,7 @@ let standingsData = {
   weeks: [],
   teams: {
     Midge: {
-      drivers: ["Denny Hamlin", "William Byron", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
+      drivers: ["Christopher Bell", "Chris", "Ricky Stenhouse", "Ryan Preece", "Shane Van Gisbergen"]
     },
     Emilia: { 
       drivers: ["Austin Cindric", "Austin Dillon", "Kyle Larson", "AJ Allmendinger", "Alex Bowman"]
@@ -1464,5 +1464,6 @@ setInterval(async () => {
   }
   await createLiveNewsTicker();
 }, 300000);
+
 
 
